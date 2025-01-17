@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Geist, Geist_Mono } from "next/font/google";
+import { useState } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -12,6 +13,15 @@ const geistMono = Geist_Mono({
 });
 
 export default function Home() {
+  const [apiKey, setApiKey] = useState("");
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // TODO: Handle the API key submission
+    console.log("API Key submitted:", apiKey);
+    setApiKey("");
+  };
+
   return (
     <div
       className={`${geistSans.variable} ${geistMono.variable} grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]`}
@@ -25,6 +35,29 @@ export default function Home() {
           height={38}
           priority
         />
+        
+        <form onSubmit={handleSubmit} className="w-full max-w-md flex flex-col gap-4">
+          <div className="flex flex-col gap-2">
+            <label htmlFor="apiKey" className="text-sm font-medium">
+              Notion API Key
+            </label>
+            <input
+              id="apiKey"
+              type="password"
+              value={apiKey}
+              onChange={(e) => setApiKey(e.target.value)}
+              placeholder="Enter your Notion API key"
+              className="w-full px-4 py-2 rounded-lg border border-black/[.08] dark:border-white/[.145] bg-transparent focus:outline-none focus:ring-2 focus:ring-black/10 dark:focus:ring-white/20"
+            />
+          </div>
+          <button
+            type="submit"
+            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
+          >
+            Save API Key
+          </button>
+        </form>
+
         <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
           <li className="mb-2">
             Get started by editing{" "}
@@ -112,3 +145,5 @@ export default function Home() {
     </div>
   );
 }
+
+//test2
